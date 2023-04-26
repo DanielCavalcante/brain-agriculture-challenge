@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres
+    volumes:
+      - ./src/config/seeds/db.sql
+    environment:
+      POSTGRES_DB: "brain-agriculture"
+      POSTGRES_USER: "xuxinha"
+      POSTGRES_PASSWORD: "xuxinhaEnena"
+    ports:
+      - "5432:5432"
