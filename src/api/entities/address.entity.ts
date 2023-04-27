@@ -11,13 +11,13 @@ import { Farm } from './farm.entity';
 @Entity('adresses')
 export class Address {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @ManyToOne(() => Agronomist, (agronomist) => agronomist.address)
-  agronomist: Agronomist;
+  agronomist?: Agronomist;
 
   @OneToOne(() => Farm, (farm) => farm.address)
-  farm: Farm;
+  farm?: Farm;
 
   @Column({ nullable: false })
   street: string;
@@ -25,11 +25,11 @@ export class Address {
   @Column({ nullable: false, name: 'postal_code' })
   postalCode: string;
 
-  @Column({ nullable: true })
-  neighborhood: string;
+  @Column()
+  neighborhood?: string;
 
-  @Column({ nullable: true })
-  complement: string;
+  @Column()
+  complement?: string;
 
   @Column({ nullable: false })
   city: string;

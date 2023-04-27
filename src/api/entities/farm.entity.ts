@@ -14,27 +14,27 @@ import { PlantedCrop } from './planted-crop.entity';
 @Entity('farms')
 export class Farm {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
-  @ManyToOne(() => Agronomist, (agronomist) => agronomist.farm)
-  agronomist: Agronomist[];
+  @ManyToOne(() => Agronomist, (agronomist) => agronomist.farms)
+  agronomist?: Agronomist;
 
   @OneToOne(() => Address)
-  address: Address;
+  address?: Address;
 
-  @Column({ nullable: false })
+  @Column()
   name: string;
 
-  @Column({ nullable: true, name: 'total_area_hectare' })
-  totalAreaHectare: string;
+  @Column({ name: 'total_area_hectare' })
+  totalAreaHectare?: string;
 
-  @Column({ nullable: true, name: 'arable_area' })
+  @Column({ name: 'arable_area' })
   arableArea: string;
 
-  @Column({ nullable: true, name: 'vegetation_area' })
+  @Column({ name: 'vegetation_area' })
   vegetationArea: string;
 
   @ManyToMany(() => PlantedCrop, (plantedCrop) => plantedCrop.farm)
-  @JoinTable()
+  @JoinTable({ name: 'planted_crop' })
   plantedCrop: PlantedCrop[];
 }

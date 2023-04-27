@@ -5,7 +5,7 @@ import { Address } from './address.entity';
 @Entity('agronomists')
 export class Agronomist {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column({ nullable: false, name: 'cpf_cnpj' })
   cpfCnpj: string;
@@ -14,8 +14,8 @@ export class Agronomist {
   fullname: string;
 
   @OneToMany(() => Address, (adress) => adress.agronomist)
-  address: Address[];
+  address?: Address[];
 
   @OneToMany(() => Farm, (farms) => farms.agronomist)
-  farm: Farm[];
+  farms?: Farm[];
 }

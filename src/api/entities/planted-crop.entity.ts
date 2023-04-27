@@ -6,9 +6,9 @@ import {
   JoinTable
 } from 'typeorm';
 import { Farm } from './farm.entity';
-import IPlantedCrops from '../interfaces/planted-crops.interface';
+import { IPlantedCrops } from '../interfaces/agronomist.interface';
 
-@Entity('planted_crop')
+@Entity('planted_crops')
 export class PlantedCrop {
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,6 +17,6 @@ export class PlantedCrop {
   @JoinTable()
   farm: Farm[];
 
-  @Column({ nullable: false })
-  name: IPlantedCrops;
+  @Column({ type: 'enum', enum: IPlantedCrops })
+  name: string;
 }
