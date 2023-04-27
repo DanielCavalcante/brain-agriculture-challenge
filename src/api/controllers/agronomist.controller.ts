@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Param, Body, HttpStatus } from '@nestjs/common';
 import { AgronomistService } from '../services/agronomist.service';
 import { IAgronomist } from '../interfaces/agronomist.interface';
+import { AgronomistDTO } from '../dtos/agronomist.dto';
 
 @Controller('v1/agronomists')
 export class AgronomistController {
@@ -25,11 +26,11 @@ export class AgronomistController {
   }
 
   @Post('')
-  async authenticate(@Body() body: IAgronomist) {
+  async create(@Body() body: AgronomistDTO) {
     try {
       return await this.service.create(body);
     } catch (e) {
-      console.log(e);
+      return HttpStatus.BAD_REQUEST;
     }
   }
 }

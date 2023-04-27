@@ -7,7 +7,7 @@ export class Agronomist {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ nullable: false, name: 'cpf_cnpj' })
+  @Column({ nullable: false, name: 'cpf_cnpj', unique: true })
   cpfCnpj: string;
 
   @Column({ nullable: false })

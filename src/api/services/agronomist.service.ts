@@ -44,6 +44,8 @@ export class AgronomistService {
         const addressSaved: Address = await this.addressRepository.save(
           address
         );
+
+        if (!addressSaved) 'Erro try create address.';
       }
       return agronomist;
     } catch (e) {
