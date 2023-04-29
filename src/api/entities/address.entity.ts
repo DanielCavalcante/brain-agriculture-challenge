@@ -13,7 +13,10 @@ export class Address {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @ManyToOne(() => Agronomist, (agronomist) => agronomist.address)
+  @ManyToOne(() => Agronomist, (agronomist) => agronomist.address, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
   agronomist?: Agronomist;
 
   @OneToOne(() => Farm, (farm) => farm.address)

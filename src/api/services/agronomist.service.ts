@@ -20,10 +20,11 @@ export class AgronomistService {
 
   async findById(stringId: string): Promise<Agronomist> {
     const id = Number(stringId);
-    return await this.repository.findOne({
+    const agronomist = await this.repository.findOne({
       where: { id },
       relations: ['address']
     });
+    return agronomist;
   }
 
   async findAll(): Promise<any> {
@@ -47,6 +48,32 @@ export class AgronomistService {
 
         if (!addressSaved) 'Erro try create address.';
       }
+      return agronomist;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async delete(stringId: string): Promise<any> {
+    try {
+      const id = Number(stringId);
+      const response = await this.repository.delete(id);
+      return response;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async update(
+    stringId: string,
+    agronomistInterface: IAgronomist
+  ): Promise<any> {
+    try {
+      const id = Number(stringId);
+      const data = this.helper.agronomistBuilder(agronomistInterface);
+      console.log(data);
+      const agronomist = await this.repository.update(id, data);
+      console.log(agronomist);
       return agronomist;
     } catch (e) {
       console.log(e);
