@@ -25,7 +25,7 @@ export class AgronomistHelper {
       city: address.city,
       uf: address.uf,
       country: address.country,
-      agronomist: agronomist
+      agronomist: agronomist?.id ? agronomist : undefined
     };
 
     return data;
@@ -42,7 +42,7 @@ export class AgronomistHelper {
       arableArea: farm.arableArea,
       vegetationArea: farm.vegetationArea,
       agronomist: agronomist,
-      address: address
+      address: address.street ? this.addressBuilder(address, null) : undefined
     };
     return data;
   }

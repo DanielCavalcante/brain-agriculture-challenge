@@ -4,7 +4,8 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   ManyToOne,
-  ManyToMany
+  ManyToMany,
+  JoinColumn
 } from 'typeorm';
 import { Address } from './address.entity';
 import { Agronomist } from './agronomist.entity';
@@ -16,9 +17,11 @@ export class Farm {
   id?: number;
 
   @ManyToOne(() => Agronomist, (agronomist) => agronomist.farms)
+  @JoinColumn({ name: 'agronomist_id' })
   agronomist?: Agronomist;
 
-  @OneToOne(() => Address)
+  @OneToOne(() => Address, { eager: true })
+  @JoinColumn({ name: 'address_id' })
   address?: Address;
 
   @Column()

@@ -31,8 +31,10 @@ export class AgronomistService {
   }
 
   async findAll(): Promise<any> {
-    const agronomists = await this.repository.find({});
-    return agronomists;
+    try {
+      const agronomists = await this.repository.find({});
+      return agronomists;
+    } catch (e) {}
   }
 
   async create(agronomistInterface: IAgronomist): Promise<Agronomist> {
@@ -57,8 +59,16 @@ export class AgronomistService {
           if (farm.name) {
             const sumAreas = farm?.vegetationArea + farm?.arableArea;
             if (sumAreas <= farm.totalAreaHectare) {
-              const data = this.helper.farmBuilder(farm, agronomist);
-              const farmToSave = await this.farmRepository.save(data);
+              const data = this.helper.farmBuilder(
+                farm,
+                agronomist,
+                farm.address
+              );
+              const address = await this.addressRepository.save(data.address);
+
+              if (address?.id) data.address = address;
+
+              let farmToSave = await this.farmRepository.save(data);
               if (farmToSave.id) agronomist.farms.push(farmToSave);
             }
           }

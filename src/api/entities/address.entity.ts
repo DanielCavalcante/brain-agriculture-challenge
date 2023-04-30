@@ -3,7 +3,8 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  OneToOne
+  OneToOne,
+  JoinColumn
 } from 'typeorm';
 import { Agronomist } from './agronomist.entity';
 import { Farm } from './farm.entity';
@@ -17,9 +18,10 @@ export class Address {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   })
+  @JoinColumn({ name: 'agronomist_id' })
   agronomist?: Agronomist;
 
-  @OneToOne(() => Farm, (farm) => farm.address)
+  @OneToOne(() => Farm)
   farm?: Farm;
 
   @Column({ nullable: false })
