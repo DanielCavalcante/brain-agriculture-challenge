@@ -1,6 +1,11 @@
 import { Address } from '../entities/address.entity';
 import { Agronomist } from '../entities/agronomist.entity';
-import { IAddress, IAgronomist } from '../interfaces/agronomist.interface';
+import { Farm } from '../entities/farm.entity';
+import {
+  IAddress,
+  IAgronomist,
+  IFarm
+} from '../interfaces/agronomist.interface';
 
 export class AgronomistHelper {
   public agronomistBuilder(agronomist: IAgronomist): Agronomist {
@@ -23,6 +28,22 @@ export class AgronomistHelper {
       agronomist: agronomist
     };
 
+    return data;
+  }
+
+  public farmBuilder(
+    farm: IFarm,
+    agronomist: Agronomist,
+    address?: Address
+  ): Farm {
+    const data: Farm = {
+      name: farm.name,
+      totalAreaHectare: farm.totalAreaHectare,
+      arableArea: farm.arableArea,
+      vegetationArea: farm.vegetationArea,
+      agronomist: agronomist,
+      address: address
+    };
     return data;
   }
 }

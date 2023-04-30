@@ -13,7 +13,7 @@ export class PlantedCrop {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToMany(() => Farm, (farm) => farm.plantedCrop)
+  @ManyToMany(() => Farm, (farm) => farm.plantedCrops)
   @JoinTable()
   farm: Farm[];
 

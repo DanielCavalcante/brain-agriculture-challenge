@@ -50,7 +50,6 @@ export class AgronomistController {
     try {
       return await this.service.delete(id);
     } catch (e) {
-      console.log(e);
       return HttpStatus.NOT_FOUND;
     }
   }

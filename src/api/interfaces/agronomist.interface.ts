@@ -14,10 +14,10 @@ export interface IFarm {
   agronomist?: IAgronomist;
   address?: IAddress;
   name: string;
-  totalAreaHectare?: string;
-  arableArea?: string;
-  vegetationArea?: string;
-  plantedCrop: IPlantedCrops;
+  totalAreaHectare: number;
+  arableArea: number;
+  vegetationArea: number;
+  plantedCrop?: IPlantedCrops;
 }
 
 export enum IPlantedCrops {
@@ -33,5 +33,5 @@ export interface IAgronomist {
   cpfCnpj: string;
   fullname: string;
   address?: IAddress;
-  farm?: IFarm;
+  farms?: IFarm[];
 }

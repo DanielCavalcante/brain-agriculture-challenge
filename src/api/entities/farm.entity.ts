@@ -4,8 +4,7 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   ManyToOne,
-  ManyToMany,
-  JoinTable
+  ManyToMany
 } from 'typeorm';
 import { Address } from './address.entity';
 import { Agronomist } from './agronomist.entity';
@@ -26,15 +25,14 @@ export class Farm {
   name: string;
 
   @Column({ name: 'total_area_hectare' })
-  totalAreaHectare?: string;
+  totalAreaHectare: number;
 
   @Column({ name: 'arable_area' })
-  arableArea: string;
+  arableArea: number;
 
   @Column({ name: 'vegetation_area' })
-  vegetationArea: string;
+  vegetationArea: number;
 
   @ManyToMany(() => PlantedCrop, (plantedCrop) => plantedCrop.farm)
-  @JoinTable({ name: 'planted_crop' })
-  plantedCrop: PlantedCrop[];
+  plantedCrops?: PlantedCrop[];
 }

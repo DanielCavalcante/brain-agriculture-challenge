@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Agronomist } from '../entities/agronomist.entity';
-import { IAgronomist } from '../interfaces/agronomist.interface';
+import { IAgronomist, IFarm } from '../interfaces/agronomist.interface';
 import { AgronomistHelper } from '../helpers/agronomist.helper';
 import { Address } from '../entities/address.entity';
+import { Farm } from '../entities/farm.entity';
 
 @Injectable()
 export class AgronomistService {
@@ -13,6 +14,8 @@ export class AgronomistService {
     private readonly repository: Repository<Agronomist>,
     @InjectRepository(Address)
     private readonly addressRepository: Repository<Address>,
+    @InjectRepository(Farm)
+    private readonly farmRepository: Repository<Farm>,
     private readonly helper: AgronomistHelper
   ) {
     this.helper = new AgronomistHelper();
@@ -22,7 +25,7 @@ export class AgronomistService {
     const id = Number(stringId);
     const agronomist = await this.repository.findOne({
       where: { id },
-      relations: ['address']
+      relations: ['address', 'farms']
     });
     return agronomist;
   }
@@ -36,6 +39,7 @@ export class AgronomistService {
     try {
       const data = this.helper.agronomistBuilder(agronomistInterface);
       let agronomist = await this.repository.save(data);
+
       if (agronomist?.id && agronomistInterface?.address.street) {
         let address = this.helper.addressBuilder(
           agronomistInterface?.address,
@@ -48,6 +52,19 @@ export class AgronomistService {
 
         if (!addressSaved) 'Erro try create address.';
       }
+      if (agronomist?.id && agronomistInterface?.farms) {
+        agronomistInterface.farms.map(async (farm: IFarm) => {
+          if (farm.name) {
+            const sumAreas = farm?.vegetationArea + farm?.arableArea;
+            if (sumAreas <= farm.totalAreaHectare) {
+              const data = this.helper.farmBuilder(farm, agronomist);
+              const farmToSave = await this.farmRepository.save(data);
+              if (farmToSave.id) agronomist.farms.push(farmToSave);
+            }
+          }
+        });
+      }
+
       return agronomist;
     } catch (e) {
       console.log(e);
@@ -71,9 +88,7 @@ export class AgronomistService {
     try {
       const id = Number(stringId);
       const data = this.helper.agronomistBuilder(agronomistInterface);
-      console.log(data);
       const agronomist = await this.repository.update(id, data);
-      console.log(agronomist);
       return agronomist;
     } catch (e) {
       console.log(e);
