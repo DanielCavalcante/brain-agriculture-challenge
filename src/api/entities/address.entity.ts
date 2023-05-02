@@ -4,10 +4,12 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToOne,
-  JoinColumn
+  JoinColumn,
+  OneToMany
 } from 'typeorm';
 import { Agronomist } from './agronomist.entity';
 import { Farm } from './farm.entity';
+import { City } from './city.entity';
 
 @Entity('adresses')
 export class Address {
@@ -36,12 +38,11 @@ export class Address {
   @Column()
   complement?: string;
 
-  @Column({ nullable: false })
-  city: string;
-
-  @Column({ nullable: false })
-  uf: string;
-
-  @Column({ nullable: false })
-  country: string;
+  @OneToOne(() => City, (city) => city.address, {
+    eager: true,
+    onDelete: 'RESTRICT',
+    onUpdate: 'RESTRICT'
+  })
+  @JoinColumn({ name: 'city_id' })
+  city?: City;
 }

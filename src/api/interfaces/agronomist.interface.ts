@@ -1,12 +1,27 @@
+export interface IState {
+  id?: number;
+  ufCode?: number;
+  name: string;
+  uf: string;
+  region?: string;
+  cities?: ICity[];
+}
+
+export interface ICity {
+  id?: number;
+  code?: number;
+  name: string;
+  address?: IAddress;
+  uf: IState;
+}
+
 export interface IAddress {
   id?: number;
   street: string;
   postalCode: string;
   neighborhood?: string;
   complement?: string;
-  city: string;
-  uf: string;
-  country: string;
+  city?: ICity;
 }
 
 export interface IFarm {

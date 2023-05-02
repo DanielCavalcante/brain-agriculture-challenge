@@ -26,7 +26,7 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
       migrations: [__dirname + '/migrations/*{.ts,.js}'],
       migrationsRun: true,
       migrationsTableName: 'history',
-      synchronize: true
+      synchronize: false
     })
   ],
   controllers: [AppController],

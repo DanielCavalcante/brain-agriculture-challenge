@@ -6,6 +6,7 @@ import { IAgronomist, IFarm } from '../interfaces/agronomist.interface';
 import { AgronomistHelper } from '../helpers/agronomist.helper';
 import { Address } from '../entities/address.entity';
 import { Farm } from '../entities/farm.entity';
+import { City } from '../entities/city.entity';
 
 @Injectable()
 export class AgronomistService {
@@ -16,6 +17,8 @@ export class AgronomistService {
     private readonly addressRepository: Repository<Address>,
     @InjectRepository(Farm)
     private readonly farmRepository: Repository<Farm>,
+    @InjectRepository(City)
+    private readonly cityRepository: Repository<City>,
     private readonly helper: AgronomistHelper
   ) {
     this.helper = new AgronomistHelper();
@@ -41,18 +44,25 @@ export class AgronomistService {
     try {
       const data = this.helper.agronomistBuilder(agronomistInterface);
       let agronomist = await this.repository.save(data);
+      if (agronomist?.id && agronomistInterface?.address[0].street) {
+        const city = await this.cityRepository.findOneBy({
+          name: agronomistInterface?.address[0].city.name
+        });
+        if (city?.id) {
+          let address = this.helper.addressBuilder(
+            agronomistInterface?.address[0],
+            agronomist,
+            city
+          );
 
-      if (agronomist?.id && agronomistInterface?.address.street) {
-        let address = this.helper.addressBuilder(
-          agronomistInterface?.address,
-          agronomist
-        );
+          console.log(address);
 
-        const addressSaved: Address = await this.addressRepository.save(
-          address
-        );
+          const addressSaved: Address = await this.addressRepository.save(
+            address
+          );
 
-        if (!addressSaved) 'Erro try create address.';
+          if (!addressSaved) 'Erro try create address.';
+        }
       }
       if (agronomist?.id && agronomistInterface?.farms) {
         agronomistInterface.farms.map(async (farm: IFarm) => {
@@ -62,7 +72,8 @@ export class AgronomistService {
               const data = this.helper.farmBuilder(
                 farm,
                 agronomist,
-                farm.address
+                farm.address,
+                null
               );
               const address = await this.addressRepository.save(data.address);
 
