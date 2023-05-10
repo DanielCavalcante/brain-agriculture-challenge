@@ -19,6 +19,7 @@ export interface IAddress {
   id?: number;
   street: string;
   postalCode: string;
+  farms?: IFarm[];
   neighborhood?: string;
   complement?: string;
   city?: ICity;
@@ -32,10 +33,16 @@ export interface IFarm {
   totalAreaHectare: number;
   arableArea: number;
   vegetationArea: number;
-  plantedCrop?: IPlantedCrops;
+  plantedCrops?: IPlantedCrops[];
 }
 
-export enum IPlantedCrops {
+export interface IPlantedCrops {
+  id?: number;
+  farm?: IFarm[];
+  name: PlantedCropsEnum;
+}
+
+export enum PlantedCropsEnum {
   SOYA = 'Soja',
   CORN = 'Milho',
   COTTON = 'Algodão',
@@ -47,6 +54,6 @@ export interface IAgronomist {
   id?: number;
   cpfCnpj: string;
   fullname: string;
-  address?: IAddress;
+  address?: IAddress[];
   farms?: IFarm[];
 }

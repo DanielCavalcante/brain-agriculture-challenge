@@ -3,26 +3,9 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 export class Migrate1682952773820 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      DROP table IF exists states;
-      DROP table IF exists cities cascade;
-      CREATE TABLE states (
-        id serial4 NOT NULL,
-        uf_code INT,
-        name VARCHAR (50),
-        uf varchar(50),
-        region INT,
-        PRIMARY KEY (id)
-      );
-
-      CREATE TABLE cities (
-        id serial4 NOT NULL,
-        code INT,
-        name VARCHAR(255),
-        uf varchar(2),
-        constraint uf_fk Foreign key (uf) references states(uf),
-        PRIMARY KEY (id)
-      );
-        
+      ALTER TABLE states  ALTER COLUMN uf TYPE varchar (2);
+      ALTER TABLE public.cities  DROP CONSTRAINT "FK_ae747cc485765531431242a656a";
+      ALTER TABLE cities  ALTER COLUMN uf TYPE varchar (2);
       insert into states (uf_code, name, uf, region) values (12, 'Acre', 'AC', 1);
       insert into states (uf_code, name, uf, region) values (27, 'Alagoas', 'AL', 2);
       insert into states (uf_code, name, uf, region) values (16, 'Amapá', 'AP', 1);

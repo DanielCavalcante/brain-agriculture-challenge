@@ -3,10 +3,10 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn
 } from 'typeorm';
 import { City } from './city.entity';
-
 @Entity('states')
 export class State {
   @PrimaryGeneratedColumn()
@@ -24,6 +24,6 @@ export class State {
   @Column()
   region?: string;
 
-  @ManyToOne(() => City)
-  city?: City[];
+  @OneToMany(() => City, (city) => city.uf)
+  cities?: City[];
 }

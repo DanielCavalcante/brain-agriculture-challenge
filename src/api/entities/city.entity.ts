@@ -2,8 +2,8 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn
 } from 'typeorm';
 import { State } from './state.entity';
@@ -15,20 +15,17 @@ export class City {
   id?: number;
 
   @Column()
-  readonly code?: number;
+  code?: number;
 
   @Column({ name: 'name' })
-  readonly name: string;
+  name: string;
 
-  @OneToOne(() => City, (city) => city.address, {
+  @OneToMany(() => City, (city) => city.address, {
     cascade: false
   })
-  address?: Address;
+  address?: Address[];
 
-  @OneToMany(() => State, (state) => state.uf, {
-    onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT'
-  })
+  @ManyToOne(() => State, (state) => state.uf)
   @JoinColumn({ name: 'uf' })
-  readonly uf: State;
+  uf: State;
 }

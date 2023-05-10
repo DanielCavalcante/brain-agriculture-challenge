@@ -52,10 +52,8 @@ export class AgronomistService {
           let address = this.helper.addressBuilder(
             agronomistInterface?.address[0],
             agronomist,
-            city
+            city[0]
           );
-
-          console.log(address);
 
           const addressSaved: Address = await this.addressRepository.save(
             address
@@ -72,12 +70,13 @@ export class AgronomistService {
               const data = this.helper.farmBuilder(
                 farm,
                 agronomist,
-                farm.address,
-                null
+                farm.address[0],
+                null,
+                farm.plantedCrops
               );
               const address = await this.addressRepository.save(data.address);
 
-              if (address?.id) data.address = address;
+              if (address[0]?.id) data.address = address;
 
               let farmToSave = await this.farmRepository.save(data);
               if (farmToSave.id) agronomist.farms.push(farmToSave);

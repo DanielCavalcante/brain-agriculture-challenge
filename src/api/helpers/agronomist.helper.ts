@@ -2,6 +2,7 @@ import { Address } from '../entities/address.entity';
 import { Agronomist } from '../entities/agronomist.entity';
 import { City } from '../entities/city.entity';
 import { Farm } from '../entities/farm.entity';
+import { PlantedCrop } from '../entities/planted-crop.entity';
 import {
   IAddress,
   IAgronomist,
@@ -18,9 +19,9 @@ export class AgronomistHelper {
   }
 
   public addressBuilder(
-    address: IAddress,
+    address: Address,
     agronomist: Agronomist,
-    city: City
+    city: City[]
   ): Address {
     const data: Address = {
       street: address.street,
@@ -38,7 +39,8 @@ export class AgronomistHelper {
     farm: IFarm,
     agronomist: Agronomist,
     address?: Address,
-    city?: City
+    city?: City,
+    plantedCrops?: PlantedCrop[]
   ): Farm {
     const data: Farm = {
       name: farm.name,
@@ -47,9 +49,12 @@ export class AgronomistHelper {
       vegetationArea: farm.vegetationArea,
       agronomist: agronomist,
       address: address.street
-        ? this.addressBuilder(address, null, city)
-        : undefined
+        ? this.addressBuilder(address, null, city[0])
+        : undefined,
+      plantedCrops: plantedCrops
     };
     return data;
   }
+
+  public farmPlantedCrops() {}
 }
