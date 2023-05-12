@@ -18,8 +18,8 @@ export class State {
   @Column()
   name: string;
 
-  @Column()
-  uf: string;
+  @Column({ nullable: true })
+  uf?: string;
 
   @Column()
   region?: string;

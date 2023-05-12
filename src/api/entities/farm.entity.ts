@@ -7,7 +7,6 @@ import {
   ManyToMany,
   JoinColumn,
   JoinTable,
-  OneToMany
 } from 'typeorm';
 import { Address } from './address.entity';
 import { Agronomist } from './agronomist.entity';
@@ -22,7 +21,7 @@ export class Farm {
   @JoinColumn({ name: 'agronomist_id' })
   agronomist?: Agronomist;
 
-  @OneToMany(() => Address, (address) => address.farm)
+  @OneToOne(() => Address, (address) => address.farm)
   @JoinColumn({ name: 'address_id' })
   address?: Address;
 

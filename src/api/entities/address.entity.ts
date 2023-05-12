@@ -4,7 +4,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
-  OneToMany
+  OneToOne
 } from 'typeorm';
 import { Agronomist } from './agronomist.entity';
 import { Farm } from './farm.entity';
@@ -22,8 +22,8 @@ export class Address {
   @JoinColumn({ name: 'agronomist_id' })
   agronomist?: Agronomist;
 
-  @ManyToOne(() => Farm, (farm) => farm.address)
-  farm?: Farm[];
+  @OneToOne(() => Farm, (farm) => farm.address)
+  farm?: Farm;
 
   @Column({ nullable: false })
   street: string;
@@ -37,11 +37,11 @@ export class Address {
   @Column()
   complement?: string;
 
-  @ManyToOne(() => City, (city) => city.address, {
+  @OneToOne(() => City, (city) => city.address, {
     eager: true,
     onDelete: 'RESTRICT',
     onUpdate: 'RESTRICT'
   })
   @JoinColumn({ name: 'city_id' })
-  city?: City[];
+  city?: City;
 }

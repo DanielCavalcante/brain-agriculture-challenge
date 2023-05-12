@@ -19,7 +19,7 @@ export interface IAddress {
   id?: number;
   street: string;
   postalCode: string;
-  farms?: IFarm[];
+  farms?: IFarm;
   neighborhood?: string;
   complement?: string;
   city?: ICity;

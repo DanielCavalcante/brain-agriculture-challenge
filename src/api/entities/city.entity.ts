@@ -3,7 +3,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn
 } from 'typeorm';
 import { State } from './state.entity';
@@ -20,12 +20,12 @@ export class City {
   @Column({ name: 'name' })
   name: string;
 
-  @OneToMany(() => City, (city) => city.address, {
+  @OneToOne(() => City, (city) => city.address, {
     cascade: false
   })
-  address?: Address[];
+  address?: Address;
 
   @ManyToOne(() => State, (state) => state.uf)
   @JoinColumn({ name: 'uf' })
-  uf: State;
+  uf?: State;
 }

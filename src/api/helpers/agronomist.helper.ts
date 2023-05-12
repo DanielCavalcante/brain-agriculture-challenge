@@ -21,7 +21,7 @@ export class AgronomistHelper {
   public addressBuilder(
     address: Address,
     agronomist: Agronomist,
-    city: City[]
+    city: City
   ): Address {
     const data: Address = {
       street: address.street,
