@@ -1,29 +1,16 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { City } from './city.entity';
-
 @Entity('states')
 export class State {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ name: 'uf_code' })
-  ufCode?: number;
-
   @Column()
   name: string;
 
   @Column()
-  uf: string;
+  uf?: string;
 
-  @Column()
-  region?: string;
-
-  @ManyToOne(() => City)
-  city?: City[];
+  @OneToMany(() => City, (city) => city.uf)
+  cities?: City[];
 }

@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn
@@ -14,21 +15,14 @@ export class City {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column()
-  readonly code?: number;
+  @Column({ name: 'name', nullable: true })
+  name?: string;
 
-  @Column({ name: 'name' })
-  readonly name: string;
+  @OneToMany(() => Address, (address) => address.city)
+  @JoinColumn({ name: 'address_id' })
+  address?: Address[];
 
-  @OneToOne(() => City, (city) => city.address, {
-    cascade: false
-  })
-  address?: Address;
-
-  @OneToMany(() => State, (state) => state.uf, {
-    onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT'
-  })
+  @ManyToOne(() => State, (state) => state.uf, { eager: true })
   @JoinColumn({ name: 'uf' })
-  readonly uf: State;
+  uf?: State;
 }

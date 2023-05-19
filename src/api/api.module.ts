@@ -9,6 +9,10 @@ import { AgronomistHelper } from './helpers/agronomist.helper';
 import { PlantedCrop } from './entities/planted-crop.entity';
 import { City } from './entities/city.entity';
 import { State } from './entities/state.entity';
+import { StateService } from './services/state.service';
+import { StateController } from './controllers/state.controller';
+import { RegionService } from './services/region.service';
+import { RegionController } from './controllers/region.controller';
 
 @Module({
   imports: [
@@ -21,7 +25,7 @@ import { State } from './entities/state.entity';
       State
     ])
   ],
-  providers: [AgronomistService, AgronomistHelper],
-  controllers: [AgronomistController]
+  providers: [AgronomistService, AgronomistHelper, StateService, RegionService],
+  controllers: [AgronomistController, StateController, RegionController]
 })
 export class ApiModule {}

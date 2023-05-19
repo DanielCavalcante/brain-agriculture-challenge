@@ -24,9 +24,9 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
       database: process.env.DATABASE_NAME,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       migrations: [__dirname + '/migrations/*{.ts,.js}'],
-      migrationsRun: true,
+      migrationsRun: false,
       migrationsTableName: 'history',
-      synchronize: false
+      synchronize: true
     })
   ],
   controllers: [AppController],

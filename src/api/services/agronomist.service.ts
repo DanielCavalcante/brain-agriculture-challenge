@@ -55,8 +55,6 @@ export class AgronomistService {
             city
           );
 
-          console.log(address);
-
           const addressSaved: Address = await this.addressRepository.save(
             address
           );
@@ -73,7 +71,8 @@ export class AgronomistService {
                 farm,
                 agronomist,
                 farm.address,
-                null
+                null,
+                farm.plantedCrops
               );
               const address = await this.addressRepository.save(data.address);
 

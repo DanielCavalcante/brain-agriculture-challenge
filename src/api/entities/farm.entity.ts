@@ -5,7 +5,8 @@ import {
   OneToOne,
   ManyToOne,
   ManyToMany,
-  JoinColumn
+  JoinColumn,
+  JoinTable,
 } from 'typeorm';
 import { Address } from './address.entity';
 import { Agronomist } from './agronomist.entity';
@@ -20,7 +21,7 @@ export class Farm {
   @JoinColumn({ name: 'agronomist_id' })
   agronomist?: Agronomist;
 
-  @OneToOne(() => Address, { eager: true })
+  @OneToOne(() => Address, (address) => address.farm)
   @JoinColumn({ name: 'address_id' })
   address?: Address;
 
@@ -36,6 +37,7 @@ export class Farm {
   @Column({ name: 'vegetation_area' })
   vegetationArea: number;
 
-  @ManyToMany(() => PlantedCrop, (plantedCrop) => plantedCrop.farm)
+  @ManyToMany(() => PlantedCrop)
+  @JoinTable()
   plantedCrops?: PlantedCrop[];
 }
