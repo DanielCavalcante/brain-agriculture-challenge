@@ -5,8 +5,6 @@ import {
   Matches,
   MinLength
 } from 'class-validator';
-import { Address } from '../entities/address.entity';
-import { Type } from 'class-transformer';
 import { IAddress, IFarm } from '../interfaces/agronomist.interface';
 
 const cpfAndCnpjRegex =

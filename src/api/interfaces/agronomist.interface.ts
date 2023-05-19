@@ -9,9 +9,8 @@ export interface IState {
 
 export interface ICity {
   id?: number;
-  code?: number;
   name: string;
-  address?: IAddress;
+  address?: IAddress[];
   uf: IState;
 }
 

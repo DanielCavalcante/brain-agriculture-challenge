@@ -3,6 +3,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn
 } from 'typeorm';
@@ -14,18 +15,14 @@ export class City {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column()
-  code?: number;
+  @Column({ name: 'name', nullable: true })
+  name?: string;
 
-  @Column({ name: 'name' })
-  name: string;
+  @OneToMany(() => Address, (address) => address.city)
+  @JoinColumn({ name: 'address_id' })
+  address?: Address[];
 
-  @OneToOne(() => City, (city) => city.address, {
-    cascade: false
-  })
-  address?: Address;
-
-  @ManyToOne(() => State, (state) => state.uf)
+  @ManyToOne(() => State, (state) => state.uf, { eager: true })
   @JoinColumn({ name: 'uf' })
   uf?: State;
 }

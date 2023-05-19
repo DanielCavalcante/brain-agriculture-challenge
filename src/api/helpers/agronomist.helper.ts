@@ -49,7 +49,7 @@ export class AgronomistHelper {
       vegetationArea: farm.vegetationArea,
       agronomist: agronomist,
       address: address.street
-        ? this.addressBuilder(address, null, city[0])
+        ? this.addressBuilder(address, null, city)
         : undefined,
       plantedCrops: plantedCrops
     };
