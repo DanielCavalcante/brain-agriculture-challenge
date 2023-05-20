@@ -26,7 +26,7 @@ export class AgronomistController {
     }
   }
 
-  @Get('')
+  @Get()
   async findAll() {
     try {
       return await this.service.findAll();
@@ -35,7 +35,7 @@ export class AgronomistController {
     }
   }
 
-  @Post('')
+  @Post()
   async create(@Res() response: Response, @Body() body: AgronomistDTO) {
     try {
       const agronomist = await this.service.create(body);
