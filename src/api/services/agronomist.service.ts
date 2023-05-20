@@ -67,13 +67,17 @@ export class AgronomistService {
           if (farm.name) {
             const sumAreas = farm?.vegetationArea + farm?.arableArea;
             if (sumAreas <= farm.totalAreaHectare) {
+              const city = await this.cityRepository.findOneBy({
+                name: agronomistInterface?.address[0].city.name
+              });
               const data = this.helper.farmBuilder(
                 farm,
                 agronomist,
                 farm.address,
-                null,
+                city,
                 farm.plantedCrops
               );
+
               const address = await this.addressRepository.save(data.address);
 
               if (address?.id) data.address = address;

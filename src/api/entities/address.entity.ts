@@ -34,7 +34,7 @@ export class Address {
   @Column()
   complement?: string;
 
-  @ManyToOne(() => City, (city) => city.address)
+  @ManyToOne(() => City, (city) => city.address, { eager: true })
   @JoinColumn({ name: 'city_id' })
   city?: City;
 }
