@@ -37,7 +37,7 @@ export class Farm {
   @Column({ name: 'vegetation_area' })
   vegetationArea: number;
 
-  @ManyToMany(() => PlantedCrop)
+  @ManyToMany(() => PlantedCrop, { eager: true })
   @JoinTable()
   plantedCrops?: PlantedCrop[];
 }

@@ -7,6 +7,7 @@ import { AgronomistHelper } from '../helpers/agronomist.helper';
 import { Address } from '../entities/address.entity';
 import { Farm } from '../entities/farm.entity';
 import { City } from '../entities/city.entity';
+import { PlantedCrop } from '../entities/planted-crop.entity';
 
 @Injectable()
 export class AgronomistService {
@@ -19,6 +20,8 @@ export class AgronomistService {
     private readonly farmRepository: Repository<Farm>,
     @InjectRepository(City)
     private readonly cityRepository: Repository<City>,
+    @InjectRepository(PlantedCrop)
+    private readonly plantedCropsRepository: Repository<PlantedCrop>,
     private readonly helper: AgronomistHelper
   ) {
     this.helper = new AgronomistHelper();
@@ -82,8 +85,11 @@ export class AgronomistService {
 
               if (address?.id) data.address = address;
 
-              let farmToSave = await this.farmRepository.save(data);
-              if (farmToSave.id) agronomist.farms.push(farmToSave);
+              const plantedCrops = await this.plantedCropsRepository.save(
+                farm.plantedCrops
+              );
+              data.plantedCrops = plantedCrops;
+              await this.farmRepository.save(data);
             }
           }
         });

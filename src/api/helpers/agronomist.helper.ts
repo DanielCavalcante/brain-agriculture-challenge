@@ -42,7 +42,6 @@ export class AgronomistHelper {
     city?: City,
     plantedCrops?: PlantedCrop[]
   ): Farm {
-    console.log(city);
     const data: Farm = {
       name: farm.name,
       totalAreaHectare: farm.totalAreaHectare,
