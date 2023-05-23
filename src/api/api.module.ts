@@ -13,6 +13,8 @@ import { StateService } from './services/state.service';
 import { StateController } from './controllers/state.controller';
 import { RegionService } from './services/region.service';
 import { RegionController } from './controllers/region.controller';
+import { DashBoardService } from './services/dashboard.service';
+import { DashBoardController } from './controllers/dashboard.controller';
 
 @Module({
   imports: [
@@ -25,7 +27,18 @@ import { RegionController } from './controllers/region.controller';
       State
     ])
   ],
-  providers: [AgronomistService, AgronomistHelper, StateService, RegionService],
-  controllers: [AgronomistController, StateController, RegionController]
+  providers: [
+    AgronomistService,
+    AgronomistHelper,
+    StateService,
+    RegionService,
+    DashBoardService
+  ],
+  controllers: [
+    AgronomistController,
+    StateController,
+    RegionController,
+    DashBoardController
+  ]
 })
 export class ApiModule {}
