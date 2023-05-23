@@ -1,3 +1,50 @@
+*Payloads que podem ajudar a testar o projeto
+
+**Seeds de agronomist
+```
+{
+  "fullname": "Nena de Jesus",
+  "cpfCnpj": "123.477.511-47",
+  "address": [
+    {
+        "street": "Rua Alfredo Souza Gama, 75",
+        "postalCode": "58075385",
+        "neighborhood": "Ernesto Gaysel",
+        "complement": "Apartamento 201",
+        "city": {
+            "name": "Recife"
+        }
+    }
+  ],
+  "farms": [
+    { 
+      "name": "Fazenda Bonito PE",
+      "totalAreaHectare": 100,
+      "arableArea": 50,
+      "vegetationArea": 49,
+      "plantedCrops": [
+        {
+          "name": "Soja"
+        },
+        {
+          "name": "Milho"
+        }
+      ],
+      "address": {
+        "street": "Rua Alfredo Souza Gama, 75",
+        "postalCode": "58075380",
+        "neighborhood": "Ernesto Geisel",
+        "complement": "Apartamento 201",
+        "city": {
+            "name": "Recife"
+        }
+      }
+    }
+  ]
+}
+```
+
+**Seeds de regions
 ````
 [
     {
